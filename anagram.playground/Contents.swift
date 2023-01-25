@@ -1,26 +1,17 @@
 import UIKit
 
-func isAnagram(word1: String, word2: String) -> Bool {
-    var initialWord = word1.lowercased()
-    var newWord = word2.lowercased()
-    
-    if initialWord == newWord {
+func isAnagram(initialWord: String, newWord: String) -> Bool {
+    var wordOne = initialWord.lowercased()
+    var wordTwo = newWord.lowercased()
+
+    if wordOne == wordTwo {
         return false
     }
 
-    if initialWord.count != newWord.count {
-        return false
-    }
-    
-    let wordOne = Array(initialWord).sorted()
-    let wordTwo = Array(newWord).sorted()
-    
-    if wordOne == wordTwo {
-        return true
-    } else {
-        return false
-    }
+    // Checking for different characters
+    return wordOne.sorted() != wordTwo.sorted() ? false : true
 }
 
-let result = isAnagram(word1: "Dracula", word2: "Alucard")
+let result = isAnagram(initialWord: "Dracula", newWord: "Alucard")
+
 print(result)
