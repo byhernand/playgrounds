@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 let rock = "rock"
 let paper = "paper"

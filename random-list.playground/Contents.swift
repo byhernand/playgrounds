@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 let nameList = ["Ed", "Carolina", "Juan", "Carlos", "Peter"]
 

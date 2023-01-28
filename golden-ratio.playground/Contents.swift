@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 func roundNumber(value: Double) -> Double {
     return round(value * 10000) / 10000.0 // 4 decimals

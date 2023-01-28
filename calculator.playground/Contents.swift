@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 // Helpers
 func roundNumber(_ num: Double) -> Double {

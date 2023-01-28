@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 func isAnagram(initialWord: String, newWord: String) -> Bool {
     var wordOne = initialWord.lowercased()
