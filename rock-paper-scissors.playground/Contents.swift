@@ -1,38 +1,39 @@
 import Foundation
 
+
 let rock = "rock"
 let paper = "paper"
 let scissors = "scissors"
 
 
-func randomOption() -> String {
+func randomChoice() -> String {
     let options = [rock, paper, scissors]
-    let randomNum = Int.random(in: 0..<options.count)
-    return options[randomNum]
+    let randomIdx = Int.random(in: 0..<options.count)
+    return options[randomIdx]
 }
 
 
-func play(user: String) {
-    let pc = randomOption()
-    var result : String
-    
-    print("You choose \"\(user)\".")
+func play(userChoice: String) {
+    let pcChoice = randomChoice()
+    var result = String()
 
-    switch user {
-    case pc:
-        print("PC choose \"\(pc)\", it's a draw!")
+    switch userChoice {
+    case pcChoice:
+        result = "It's a draw"
     case rock:
-        result = pc == scissors ? "win" : "lose"
-        print("PC choose \"\(pc)\", you \(result)!")
+        result = pcChoice == scissors ? "You win" : "You lose"
     case paper:
-        result = pc == rock ? "win" : "lose"
-        print("PC choose \"\(pc)\", you \(result)!")
+        result = pcChoice == rock ? "You win" : "You lose"
     case scissors:
-        result = pc == paper ? "win" : "lose"
-        print("PC choose \"\(pc)\", you \(result)!")
+        result = pcChoice == paper ? "You win" : "You lose"
     default:
-        print("Wrong option")
+        result = "Null choice, try again"
     }
+
+    print("🦾 PC choose \"\(pcChoice)\"")
+    print("💪🏼 You choose \"\(userChoice)\"")
+    print("🗣️ \(result)!")
 }
 
-play(user: rock)
+
+play(userChoice: rock)
