@@ -1,22 +1,25 @@
 import Foundation
 
-func roundNumber(value: Double) -> Double {
+// Helper
+func roundNumber(_ value: Float) -> Float {
     return round(value * 10000) / 10000.0 // 4 decimals
 }
 
-func fibonacci(num: Double, numOfTimes: UInt8) {
+// Main function
+func goldenRatio(num: Float, xTimes: UInt8) {
     print("🔢 Number \(Int(num))")
 
     var result = num
-    var identation = " ⎿"
+    var identation = "⎿"
+    let goldenNumber: Float = 1.6180
 
-    for n in 1...numOfTimes {
-        result = result / 1.6180
-        result = roundNumber(value: result)
-        print("\(identation) \(n)x \(result)")
-        
+
+    for n in 1...xTimes {
+        result = roundNumber(result / goldenNumber)
         identation.insert(" ", at: identation.startIndex)
+
+        print("\(identation) \(n)x \(result)")
     }
 }
 
-fibonacci(num: 20, numOfTimes: 4)
+goldenRatio(num: 20, xTimes: 4)
