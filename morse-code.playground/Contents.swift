@@ -58,41 +58,41 @@ let alphabet : [String: String] = [
 
 
 func translate(_ phrase: String) -> String {
-    var translatedWord = String()
+    var translatedPhrase = String()
+    var dotsDashes = phrase.split(separator: " ")
+    var isMorseCode = alphabet[String(dotsDashes[0])] != nil
 
-    if phrase.contains(".") || phrase.contains("-") {
-        var letters = phrase.split(separator: " ")
-
-        for i in letters {
-            if i == "/" {
-                translatedWord += " "
+    if isMorseCode {
+        for dotDash in dotsDashes {
+            if dotDash == "/" {
+                translatedPhrase += " "
+                continue
             }
-            if let letter = alphabet[String(i)] {
-                translatedWord += "\(letter)"
+            if let letter = alphabet[String(dotDash)] {
+                translatedPhrase += "\(letter)"
             }
         }
     } else {
         for character in phrase.uppercased() {
-            let ch = String(character)
+            let letter = String(character)
 
-            if ch == " " {
-                translatedWord += " / "
+            if letter == " " {
+                translatedPhrase += " / "
                 continue
             }
-
-            if let letter = alphabet[ch] {
-                translatedWord += "\(letter) "
+            if let dotDash = alphabet[letter] {
+                translatedPhrase += "\(dotDash) "
             }
         }
     }
-    
-    return translatedWord
+
+    return translatedPhrase
 }
 
 
-let result1 = translate(".... . .-.. .-.. ---  / .-- --- .-. .-.. -..")
-let result2 = translate("Hello World")
+let translation1 = translate(".... . .-.. .-.. ---  / .-- --- .-. .-.. -..")
+let translation2 = translate("Hello World")
 
 
-print(result1)
-print(result2)
+print(translation1)
+print(translation2)
