@@ -1,9 +1,6 @@
 import Foundation
 
 
-let phrase = "Hi, my name is Eduardo. My full name is Eduardo Hernand. What is your name?"
-
-
 func countWords(_ text: String) -> [String : Int] {
     var txt = text.capitalized
     var remove: Set<Character> = [".",",","?"]
@@ -27,6 +24,8 @@ func countWords(_ text: String) -> [String : Int] {
     return wordDictionary
 }
 
+
+let phrase = "Hi, my name is Eduardo. My full name is Eduardo Hernand. What is your name?"
 
 for (key, value) in countWords(phrase) {
     print("\(key)(\(value)x)", terminator: "  ")

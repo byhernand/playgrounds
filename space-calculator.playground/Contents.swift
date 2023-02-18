@@ -1,7 +1,7 @@
 import Foundation
 
 
-let gravity: [String : Double] = [
+let gravity: [String : Float] = [
     "mercury": 3.70,
     "venus": 8.87,
     "earth": 9.80,
@@ -12,7 +12,7 @@ let gravity: [String : Double] = [
 ]
 
 
-func calcWeight(weight: Double, planet: String) -> String {
+func calcWeight(weight: Float, planet: String) -> String {
     if let anotherGravity = gravity[planet.lowercased()] {
         let calc = weight * anotherGravity / gravity["earth"]!
         let result = round(calc * 100) / 100.0 // Rounding 2 digits

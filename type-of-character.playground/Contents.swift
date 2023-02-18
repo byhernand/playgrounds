@@ -1,8 +1,8 @@
 import Foundation
 
-let character: Character = "p"
+let letter: Character = "p"
 
-switch character.lowercased() {
+switch letter.lowercased() {
     case "1","2","3","4","5","6","7","8","9","0":
         print("It's a number.")
     case "a","e","i","o","u":
