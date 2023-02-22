@@ -59,29 +59,29 @@ let alphabet : [String: String] = [
 
 func translate(_ phrase: String) -> String {
     var translatedPhrase = String()
-    var dotsDashes = phrase.split(separator: " ")
-    var isMorseCode = alphabet[String(dotsDashes[0])] != nil
+    let morseSymbols = phrase.split(separator: " ")
+    let isMorseCode = alphabet[String(morseSymbols[0])] != nil
 
     if isMorseCode {
-        for dotDash in dotsDashes {
-            if dotDash == "/" {
+        for morseSymbol in morseSymbols {
+            if morseSymbol == "/" {
                 translatedPhrase += " "
                 continue
             }
-            if let letter = alphabet[String(dotDash)] {
+            if let letter = alphabet[String(morseSymbol)] {
                 translatedPhrase += "\(letter)"
             }
         }
     } else {
-        for character in phrase.uppercased() {
-            let letter = String(character)
+        for char in phrase.uppercased() {
+            let letter = String(char)
 
             if letter == " " {
                 translatedPhrase += " / "
                 continue
             }
-            if let dotDash = alphabet[letter] {
-                translatedPhrase += "\(dotDash) "
+            if let morseSymbol = alphabet[letter] {
+                translatedPhrase += "\(morseSymbol) "
             }
         }
     }
