@@ -1,6 +1,13 @@
 import Foundation
 
 
+enum gameError: Error {
+    case noValidCount
+    case noValidGame
+}
+
+
+// Helpers
 func playing(with opt: String, inThe arr: [[String]]) -> Bool {
     let row1 = arr[0] == [opt,opt,opt]
     let row2 = arr[1] == [opt,opt,opt]
@@ -19,7 +26,36 @@ func playing(with opt: String, inThe arr: [[String]]) -> Bool {
 }
 
 
-func ticTacToe(_ matrix: [[String]]) -> String {
+func countItems(_ matrix: [[String]]) -> (Int, Int) {
+    var count = (X: 0, O: 0)
+
+    for subMatrix in matrix {
+        for item in subMatrix {
+            if item == "X" {
+                count.X += 1
+            } else if item == "O" {
+                count.O += 1
+            }
+        }
+    }
+
+    return count
+}
+
+
+// Main function
+func ticTacToe(_ matrix: [[String]]) throws -> String {
+    // Error detection
+    switch countItems(matrix) {
+        case let (X, O) where O >= X:
+            throw gameError.noValidCount
+        case (0, 0):
+            throw gameError.noValidGame
+        default:
+            break
+    }
+
+    // Choose winner
     if playing(with: "X", inThe: matrix) {
         return "X"
     } else if playing(with: "O", inThe: matrix) {
@@ -37,4 +73,12 @@ let game = [
 ]
 
 
-print(ticTacToe(game))
+do {
+    try print(ticTacToe(game))
+}
+catch gameError.noValidCount {
+    print("❌ The X count cannot be less or equal than O count")
+}
+catch gameError.noValidGame {
+    print("❌ The game is empty")
+}
