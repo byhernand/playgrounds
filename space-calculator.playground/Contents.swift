@@ -1,27 +1,25 @@
 import Foundation
 
 
-let gravity: [String : Float] = [
-    "mercury": 3.70,
-    "venus": 8.87,
-    "earth": 9.80,
-    "mars": 3.72,
-    "jupiter": 24.79,
-    "saturn": 10.44,
-    "neptune": 11.15
-]
-
-
-func calcWeight(weight: Float, planet: String) -> String {
-    if let anotherGravity = gravity[planet.lowercased()] {
-        let calc = weight * anotherGravity / gravity["earth"]!
-        let result = round(calc * 100) / 100.0 // Rounding 2 digits
-
-        return "🚀 Your weight in \(planet.capitalized) is \(result) kg."
-    } else {
-        return "❌ Wrong choice, \"\(planet)\" doesn't exists."
-    }
+enum Gravity: Float {
+       case Mercury = 3.70
+       case Venus = 8.87
+       case Earth = 9.80
+       case Mars = 3.72
+       case Jupiter = 24.79
+       case Saturn = 10.44
+       case Neptune = 11.15
 }
 
 
-print(calcWeight(weight: 55, planet: "jupiter"))
+func calcWeight(weight: Float, planet anotherPlanet: Gravity) -> String {
+    let calc = weight * anotherPlanet.rawValue / Gravity.Earth.rawValue
+    let result = round(calc * 100) / 100.0 // Rounding to 2 digits
+
+    return "🚀 Your weight in \(anotherPlanet) is \(result) kg."
+}
+
+
+print(calcWeight(weight: 55, planet: .Jupiter))
+print(calcWeight(weight: 55, planet: .Mercury))
+print(calcWeight(weight: 55, planet: .Neptune))
