@@ -1,7 +1,7 @@
 import Foundation
 
 
-enum Choices {
+enum Choices: String {
     case rock, paper, scissors
 }
 
@@ -28,8 +28,8 @@ func play(with userChoice: Choices) {
             result = pcChoice == .paper ? "You win" : "You lose"
     }
 
-    print("💪🏼 You choose \"\(userChoice)\"")
-    print("🦾 PC choose \"\(pcChoice)\"")
+    print("💪🏼 You choose \"\(userChoice.rawValue.capitalized)\"")
+    print("🦾 PC choose \"\(pcChoice.rawValue.capitalized)\"")
     print("🗣️ \(result)!")
 }
 
