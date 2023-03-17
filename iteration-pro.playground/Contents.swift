@@ -11,6 +11,7 @@ for number in 1...100 {
 }
 
 
+
 print("\n\n\nMethod #2")
 func countToOneHundred(_ number: Int) {
     var number = number
@@ -24,6 +25,7 @@ func countToOneHundred(_ number: Int) {
 countToOneHundred(1)
 
 
+
 print("\n\n\nMethod #3")
 var x = 1
 
@@ -31,6 +33,7 @@ while x <= 100 {
     print(x, terminator: x < 100 ? "," : "")
     x += 1
 }
+
 
 
 print("\n\n\nMethod #4")
@@ -42,7 +45,28 @@ repeat {
 } while y <= 100
 
 
+
 print("\n\n\nMethod #5")
 let range = 1...100
 
 range.forEach { print($0, terminator: $0 < 100 ? "," : "") }
+
+
+
+print("\n\n\nMethod #6")
+func counter() -> () -> Int {
+    var number = 0
+
+    func fromZeroToOneHundred() -> Int {
+        number += 1
+        return number
+    }
+
+    return fromZeroToOneHundred
+}
+
+let count = counter()
+
+for n in 1...100 {
+    print(count(), terminator: n < 100 ? "," : "")
+}
