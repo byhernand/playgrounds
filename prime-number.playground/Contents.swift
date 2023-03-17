@@ -16,13 +16,8 @@ func isPrime(_ num: Int) -> Bool {
 }
 
 
-var result = String()
-
 for number in 1...100 {
     if isPrime(number) {
-        result += "\(number),"
+        print(number, terminator: number < 97 ? "," : "")
     }
 }
-
-
-print(result.dropLast())
