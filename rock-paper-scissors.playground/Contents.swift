@@ -1,37 +1,49 @@
 import Foundation
 
+/*
+    Who wins more "rock, paper and scissors" games?
 
-enum Choices: String {
+    Instructions:
+    • Return a string with the winner, "Player 1" or "Player 2"
+    • If it's a draw, return "Tie"
+*/
+
+enum Move: String {
     case rock, paper, scissors
 }
 
-
-func randomChoice() -> Choices {
-    let options: [Choices] = [.rock, .paper, .scissors]
-    let randomOption = Int.random(in: 0..<options.count)
-    return options[randomOption]
-}
+typealias Versus = [(Move, Move)]
 
 
-func play(with userChoice: Choices) {
-    let pcChoice = randomChoice()
-    var result = String()
+let round1: Versus = [(.rock, .scissors), (.scissors, .rock), (.paper, .scissors)]
+let round2: Versus = [(.rock, .scissors), (.paper, .rock), (.paper, .scissors)]
+let round3: Versus = [(.rock, .rock), (.paper,.paper), (.scissors, .scissors)]
 
-    switch userChoice {
-        case pcChoice:
-            result = "It's a draw"
-        case .rock:
-            result = pcChoice == .scissors ? "You win" : "You lose"
-        case .paper:
-            result = pcChoice == .rock ? "You win" : "You lose"
-        case .scissors:
-            result = pcChoice == .paper ? "You win" : "You lose"
+
+func play(_ games: Versus) -> String {
+    var player1Games = 0, player2Games = 0
+
+    for game in games {
+        switch game {
+        case let (player1, player2) where player1 == player2:
+            break // It's a draw
+        case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
+            player1Games += 1
+        default:
+            player2Games += 1
+        }
     }
 
-    print("💪🏼 You choose \"\(userChoice.rawValue.capitalized)\"")
-    print("🦾 PC choose \"\(pcChoice.rawValue.capitalized)\"")
-    print("🗣️ \(result)!")
+    if player1Games > player2Games {
+        return "Player 1"
+    } else if player2Games > player1Games {
+        return "Player 2"
+    } else {
+        return "Tie"
+    }
 }
 
 
-play(with: .rock)
+print(play(round1))
+print(play(round2))
+print(play(round3))
