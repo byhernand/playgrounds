@@ -8,11 +8,16 @@ enum Polygon: String {
 
 func drawShape(width: Int, shape: Polygon) {
     func drawSquare() {
-        var length = 1...width
-        for _ in length {
-            for n in length {
-                print("* ", terminator: n == width ? "\n" : "")
-            }
+        var line = "*"
+
+        // Creating full line
+        for _ in 1..<width {
+            line.insert(contentsOf: " *", at: line.endIndex)
+        }
+
+        // Printing shape
+        for _ in 1...width {
+            print(line)
         }
     }
     
