@@ -2,41 +2,27 @@ import Foundation
 
 
 enum Polygon: String {
-    case square, triangle
+    case square, triangle, rectangle
 }
 
 
 func drawShape(width: Int, shape: Polygon) {
-    func drawSquare() {
-        var line = "*"
-
-        // Creating full line
-        for _ in 1..<width {
-            line.insert(contentsOf: " *", at: line.endIndex)
-        }
-
-        // Printing shape
-        for _ in 1...width {
-            print(line)
-        }
-    }
-    
-    func drawTriangle() {
-        var pieces = "*"
-        var i = 1
-
-        while i <= width {
-            print(pieces)
-            pieces.insert(contentsOf: " *", at: pieces.endIndex)
-            i += 1
-        }
-    }
+    var line = "*"
 
     switch shape {
-        case .square:
-            drawSquare()
+        case .square, .rectangle:
+            for _ in 1..<width {
+                // Creating full line
+                line.insert(contentsOf: " *", at: line.endIndex)
+            }
+            for _ in 1...(shape == .square ? width : (width - 2)) {
+                print(line)
+            }
         case .triangle:
-            drawTriangle()
+            for _ in 1...width {
+                print(line)
+                line.insert(contentsOf: " *", at: line.endIndex)
+            }
     }
 }
 
@@ -44,3 +30,5 @@ func drawShape(width: Int, shape: Polygon) {
 drawShape(width: 6, shape: .square)
 print("")
 drawShape(width: 6, shape: .triangle)
+print("")
+drawShape(width: 8, shape: .rectangle)
