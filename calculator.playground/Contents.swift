@@ -1,33 +1,34 @@
 import Foundation
 
-// Helpers
-func roundNumber(_ num: Double) -> Double {
-    return round(num * 100) / 100.0
+
+enum Arithmetic {
+    case sum, substraction, multiplication, division
 }
 
-// Basic calculator
-func calculator(operation: String, num1: Double, num2: Double) {
-    switch operation {
-    case "sum":
-           print(num1 + num2)
-    case "subtraction":
-           print(num1 - num2)
-    case "multiply":
-           print(num1 * num2)
-    case "divide":
-           print(num1 / num2)
-    default:
-        print("Wrong operator")
+
+func calculator(numOne: Float, numTwo: Float, operation: Arithmetic) {
+    let calc : Float
+
+    func roundNumber(of num: Float) -> Float {
+        return round(num * 10_000) / 10_000.0
     }
+
+    switch operation {
+    case .sum:
+           calc = numOne + numTwo
+    case .substraction:
+           calc = numOne - numTwo
+    case .multiplication:
+           calc = numOne * numTwo
+    case .division:
+           calc = numOne / numTwo
+    }
+
+    print(roundNumber(of: calc))
 }
 
-// What percentage one number is of another
-func percentage(num1: Double, num2: Double) {
-    let calc = num1 * 100.0 / num2
-    let result = roundNumber(calc)
 
-    print("\nThe number \(num1) is \(result)% of \(num2)")
-}
-
-//calculator(operation: "divide", num1: 22, num2: 6)
-percentage(num1: 30, num2: 75)
+calculator(numOne: 54, numTwo: 1, operation: .sum)
+calculator(numOne: 768, numTwo: 342, operation: .substraction)
+calculator(numOne: 22, numTwo: 6, operation: .multiplication)
+calculator(numOne: 2_130, numTwo: 560, operation: .division)
