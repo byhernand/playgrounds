@@ -1,6 +1,11 @@
 import Foundation
 
 
+enum AtmError: Error {
+    case noValidQuantity
+}
+
+
 var atmBills = [
     200: 2,
     100: 3,
@@ -10,34 +15,42 @@ var atmBills = [
 ]
 
 
-func withdraw(quantity: Int) {
-    var money = quantity
-    let bills = [Int](atmBills.keys.sorted(by: { $0 > $1 }))
+func withdraw(quantity: Int) throws -> [Int] {
+    var moneyLeft = quantity
     var result = [Int]()
+    let bills = [Int](atmBills.keys.sorted(by: { $0 > $1 }))
 
     for billValue in bills {
-        if money < billValue {
+        if moneyLeft < billValue {
             continue
         }
 
-        let billQuantity = money / billValue
+        let billQuantity = moneyLeft / billValue
 
-        money = money - (billValue * billQuantity)
+        moneyLeft = moneyLeft - (billValue * billQuantity)
         atmBills[billValue]! -= billQuantity
 
         for _ in 1...billQuantity {
             result.append(billValue)
         }
 
-        if money == 0 {
+        if moneyLeft == 0 {
             break
         }
     }
 
-    print(result)
+    if moneyLeft > 0 {
+        throw AtmError.noValidQuantity
+    } else {
+        return result
+    }
 }
 
 
-withdraw(quantity: 500)
-withdraw(quantity: 75)
-withdraw(quantity: 230)
+do {
+    try print(withdraw(quantity: 500))
+    try print(withdraw(quantity: 75))
+    try print(withdraw(quantity: 230))
+} catch AtmError.noValidQuantity {
+    print("❌ No valid quantity.")
+}
