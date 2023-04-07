@@ -1,12 +1,7 @@
 import Foundation
 
 
-enum Arrenge {
-    case ascending, descending
-}
-
-
-func sort(_ list: [Int], by sortBy: Arrenge) -> [Int] {
+func sort(_ list: [Int], ascending: Bool) -> [Int] {
     var list = list
     var sortedList = [Int]()
     var largestNum = Int()
@@ -16,14 +11,15 @@ func sort(_ list: [Int], by sortBy: Arrenge) -> [Int] {
             if num > largestNum { largestNum = num }
         }
 
-        list = list.filter { $0 < largestNum} // Removing largest number
-        sortedList.insert(largestNum, at: sortedList.startIndex)
-        largestNum = 0
+        sortedList.insert(largestNum, at: 0)
+        list = list.filter { $0 < largestNum } // Removing largest number
+        if !list.isEmpty { largestNum = list[0] }
     }
 
-    return sortBy == .ascending ? sortedList : sortedList.reversed()
+    return ascending ? sortedList : sortedList.reversed()
 }
 
 
-print(sort([9,31,8,106,7,207,15], by: .ascending))
-print(sort([9,31,8,106,7,207,15], by: .descending))
+print(sort([9,31,8,106,7,207,15], ascending: true))
+print(sort([9,31,8,106,7,207,15], ascending: false))
+print(sort([-2,5,10,14,20,3,-8], ascending: true))
