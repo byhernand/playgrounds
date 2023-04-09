@@ -11,7 +11,7 @@ func areOrthogonal(vectorOne: [Int], vectorTwo: [Int]) throws -> Bool {
         throw VectorError.differentLength
     }
 
-    var result = 0
+    var result = Int()
 
     for (idx, _) in vectorOne.enumerated() {
         result += vectorOne[idx] * vectorTwo[idx]
