@@ -2,30 +2,26 @@ import Foundation
 
 
 func drawFrame(text: String) {
-    var words = text.components(separatedBy: " ")
-    var longestWord = String()
-    var topAndBottomFrame = String()
+    let words = text.components(separatedBy: " ")
+    let topAndBottomBorder : String
+    var longestWord = Int()
 
-    words.forEach {
-        if $0.count > longestWord.count { longestWord = $0 }
-    }
-
-    for (idx, _) in words.enumerated() {
-        for _ in longestWord {
-            if topAndBottomFrame.count < longestWord.count {
-                topAndBottomFrame.append("*")
-            }
-
-            // Adding white space padding
-            if words[idx].count < longestWord.count {
-                words[idx].append(" ")
-            } else { break }
+    words.forEach { word in
+        if word.count > longestWord {
+            longestWord = word.count
         }
     }
 
-    print("**\(topAndBottomFrame)**")
-    words.forEach { print("* \($0) *") }
-    print("**\(topAndBottomFrame)**", terminator: "\n\n")
+    topAndBottomBorder = String(repeating: "*", count: longestWord + 4)
+
+    print(topAndBottomBorder)
+
+    words.forEach { word in
+        let whiteSpacePadding = String(repeating: " ", count: longestWord - word.count)
+        print("* \(word)\(whiteSpacePadding) *")
+    }
+
+    print(topAndBottomBorder, terminator: "\n\n")
 }
 
 
