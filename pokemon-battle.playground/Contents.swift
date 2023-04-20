@@ -7,10 +7,10 @@ enum PokemonType {
 
 
 // Helper
-func calcEffectiveness(_ pokemonOne: PokemonType, _ pokemonTwo: PokemonType) -> Float {
-    let high: Float = 2.0
-    let neutral: Float = 1.0
-    let low: Float = 0.5
+func calcEffectiveness(_ pokemonOne: PokemonType, _ pokemonTwo: PokemonType) -> (Float, String) {
+    let high: (Float, String) = (2.0, "effective")
+    let neutral: (Float, String) = (1.0, "neutral")
+    let low: (Float, String) = (0.5, "not effective")
 
     switch pokemonOne {
         case .water:
@@ -32,24 +32,23 @@ func calcEffectiveness(_ pokemonOne: PokemonType, _ pokemonTwo: PokemonType) -> 
 
 
 // Main function
-func calcDamage(_ attacker: (PokemonType, attack: Float), vs defender: (PokemonType, defense: Float)) -> Float? {
-    let (attacker, attack) = attacker
-    let (defender, defense) = defender
+func calcDamage(attacker: PokemonType, defender: PokemonType, attack: Float, defense: Float) -> Float? {
     let validRange = 1...100
 
     if !validRange.contains(Int(attack)) || !validRange.contains(Int(defense)) {
-        return nil // No valid range
+        return nil // No valid numbers
     }
 
-    let effectiveness = calcEffectiveness(attacker, defender)
+    let (effectiveness, attackStatus) = calcEffectiveness(attacker, defender)
     let damage = 50 * (attack / defense) * effectiveness
     
-    return damage
+    print("The attack is \(attackStatus) ", terminator: "-> ")
+    return round(damage)
 }
 
 
-print(calcDamage((.water, attack: 100), vs: (.fire, defense: 100)) ?? "Error")
-print(calcDamage((.water, attack: 80), vs: (.water, defense: 95)) ?? "Error")
-print(calcDamage((.plant, attack: 2), vs: (.electric, defense: 5)) ?? "Error")
-print(calcDamage((.electric, attack: 50), vs: (.fire, defense: 100)) ?? "Error")
-print(calcDamage((.fire, attack: 25), vs: (.plant, defense: 30)) ?? "Error")
+print(calcDamage(attacker: .water, defender: .plant, attack: 100, defense: 100) ?? "Error!")
+print(calcDamage(attacker: .fire, defender: .plant, attack: 30, defense: 80) ?? "Error!")
+print(calcDamage(attacker: .plant, defender: .electric, attack: 45, defense: 75) ?? "Error!")
+print(calcDamage(attacker: .electric, defender: .water, attack: 20, defense: 100) ?? "Error!")
+print(calcDamage(attacker: .electric, defender: .water, attack: -20, defense: 110) ?? "Error!")
