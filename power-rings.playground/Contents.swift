@@ -1,62 +1,77 @@
 import Foundation
 
 
-enum KindArmy: String {
-    case harfoot
-    case southener
-    case dwarf
-    case numenorean
-    case elf
+enum KindSoldier: String {
+    case harfoot, southener, dwarf, numenorean, elf
+    
+    var bravery: Int {
+        switch self {
+        case .harfoot:
+            return 1
+        case .southener:
+            return 2
+        case .dwarf:
+            return 3
+        case .numenorean:
+            return 4
+        case .elf:
+            return 5
+        }
+    }
+}
+
+enum EvilSoldier: String {
+    case southener, orc, goblin, warg, troll
+
+    var bravery: Int {
+        switch self {
+        case .southener, .orc, .goblin:
+            return 2
+        case .warg:
+            return 3
+        case .troll:
+            return 5
+        }
+    }
+}
+
+enum ArmyError: Error {
+    case noKindArmy, noEvilArmy
 }
 
 
-enum EvilArmy: String {
-    case southener
-    case orc
-    case goblin
-    case warg
-    case troll
+func battle(kindArmy: [(KindSoldier, Int)], evilArmy: [(EvilSoldier, Int)]) throws {
+    if kindArmy.isEmpty { throw ArmyError.noKindArmy }
+    if evilArmy.isEmpty { throw ArmyError.noEvilArmy }
+
+    var kindArmyPoints = Int()
+    var evilArmyPoints = Int()
+
+    kindArmy.forEach { soldier, quantity in
+        kindArmyPoints += soldier.bravery * quantity
+    }
+    evilArmy.forEach { soldier, quantity in
+        evilArmyPoints += soldier.bravery * quantity
+    }
+
+    if kindArmyPoints == evilArmyPoints {
+        print("It's a draw.")
+    } else {
+        print(kindArmyPoints > evilArmyPoints ? "The Good Won." : "The Evil Won.")
+    }
 }
 
 
-let attack = [
-    "harfoot": 1,
-    "dwarf": 3,
-    "numenorean": 4,
-    "elf": 5,
-    "southener": 2,
-    "orc": 2,
-    "goblin": 2,
-    "warg": 3,
-    "troll": 5,
-]
-
-
-func battle(armyOne: [KindArmy], armyTwo: [EvilArmy]) -> String {
-    if armyOne.isEmpty { return "❌ Kind army doesn't have soldiers" }
-    if armyTwo.isEmpty { return "❌ Evil army doesn't have soldiers" }
-
-    var armyOnePoints = Int()
-    var armyTwoPoints = Int()
-
-    armyOne.forEach { soldier in
-        armyOnePoints += attack[soldier.rawValue]!
-    }
-    armyTwo.forEach { soldier in
-        armyTwoPoints += attack[soldier.rawValue]!
-    }
-
-    if armyOnePoints == armyTwoPoints {
-        return "It's a draw."
-    }
-
-    return armyOnePoints > armyTwoPoints ? "The Good Won." : "The Evil Won."
+do {
+    try battle(kindArmy: [(.harfoot, 1)], evilArmy: [(.orc, 1)])
+    try battle(kindArmy: [(.harfoot, 2)], evilArmy: [(.orc, 1)])
+    try battle(kindArmy: [(.harfoot, 3)], evilArmy: [(.orc, 1)])
+    try battle(kindArmy: [(.elf, 1), (.harfoot, 1)], evilArmy: [(.troll, 1)])
+    try battle(kindArmy: [(.elf, 1), (.harfoot, 1)], evilArmy: [(.troll, 1), (.orc, 1)])
 }
-
-
-print(battle(armyOne: [.harfoot], armyTwo: [.orc]))
-print(battle(armyOne: [.harfoot, .harfoot], armyTwo: [.orc]))
-print(battle(armyOne: [.harfoot, .harfoot, .harfoot], armyTwo: [.orc]))
-print(battle(armyOne: [.elf, .harfoot], armyTwo: [.troll]))
-print(battle(armyOne: [.elf, .harfoot], armyTwo: [.troll, .orc]))
-// print(battle(armyOne: [], armyTwo: [.trolls]))
+catch ArmyError.noKindArmy {
+    print("❌ Kind army doesn't have soldiers")
+}
+catch ArmyError.noEvilArmy {
+    print("❌ Evil army doesn't have soldiers")
+}
