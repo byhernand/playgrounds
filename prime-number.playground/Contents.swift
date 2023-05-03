@@ -1,23 +1,9 @@
 import Foundation
 
+let range = 1...100
+let groupOne = range.filter { $0 == 2 || $0 == 3 || $0 == 5 || $0 == 7 }
+let groupTwo = range.filter { $0 == 1 || $0 % 2 == 0 || $0 % 3 == 0 || $0 % 5 == 0 || $0 % 7 == 0 ? false : true }
 
-func isPrime(_ num: Int) -> Bool {
-    let primeNumbers = [2,3,5,7]
+let primeNumbers = groupOne + groupTwo
 
-    if num <= 1 { return false }
-
-    if primeNumbers.contains(num) { return true }
-
-    for primeNum in primeNumbers {
-        if num % primeNum == 0 { return false }
-    }
-
-    return true
-}
-
-
-for number in 1...100 {
-    if isPrime(number) {
-        print(number, terminator: number < 97 ? "," : "")
-    }
-}
+print(primeNumbers)
