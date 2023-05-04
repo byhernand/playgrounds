@@ -8,19 +8,11 @@ import Foundation
 
 func carsNeeded(passengers: Int) -> Int {
     let carSeats = 5
-    var carQuantity : Int
-    
-    if passengers < carSeats {
-        carQuantity = passengers < 1 ? 0 : 1
-    } else if passengers % carSeats == 0 {
-        carQuantity = passengers / carSeats
-    } else {
-        carQuantity = passengers / carSeats + 1
-    }
+    let carQuantity = passengers / carSeats
 
-    return carQuantity
+    return passengers % carSeats == 0 ? carQuantity : (carQuantity + 1)
 }
 
-let result = carsNeeded(passengers: 11)
-
-print(result)
+print(carsNeeded(passengers: 11))
+print(carsNeeded(passengers: 23))
+print(carsNeeded(passengers: 64))
