@@ -25,14 +25,16 @@ func race(athlete: [String], track: String) throws -> Bool {
         }
     }
 
-    print("Race result is \(raceResult)")
+    print("The race result is \(raceResult)")
     return raceResult == track
 }
 
 
 do {
-    print(try race(athlete: ["run", "jump", "run", "jump", "jump","run"], track: "_|_|_|"))
+    try print(race(athlete: ["run", "jump", "run", "jump", "jump", "run"], track: "_|_|_|"), terminator: "\n\n")
+    try print(race(athlete: ["run", "jump", "run", "jump", "run", "jump"], track: "_|_|_|"), terminator: "\n\n")
+    try print(race(athlete: ["run", "run", "run", "jump"], track: "___|"), terminator: "\n\n")
 }
 catch raceError.differentLengths {
-    print("❌ Number of athlete movements and track items are different")
+    print("❌ The number of athlete movements and track items are different")
 }
