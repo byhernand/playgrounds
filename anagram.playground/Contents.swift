@@ -1,8 +1,9 @@
 import Foundation
 
+
 func isAnagram(_ initialWord: String, _ newWord: String) -> Bool {
-    var wordOne = initialWord.lowercased()
-    var wordTwo = newWord.lowercased()
+    let wordOne = initialWord.lowercased()
+    let wordTwo = newWord.lowercased()
 
     if wordOne == wordTwo {
         return false
@@ -11,6 +12,7 @@ func isAnagram(_ initialWord: String, _ newWord: String) -> Bool {
     return wordOne.sorted() == wordTwo.sorted()
 }
 
-let result = isAnagram("Dracula", "Alucard")
 
-print(result)
+print(isAnagram("Dracula", "Alucard"))
+print(isAnagram("listen", "silent"))
+print(isAnagram("bake", "break"))
