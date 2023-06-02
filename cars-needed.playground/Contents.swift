@@ -8,9 +8,9 @@ import Foundation
 
 func carsNeeded(passengers: Int) -> Int {
     let carSeats = 5
-    let carQuantity = passengers / carSeats
+    let carQuantity = Double(passengers) / Double(carSeats)
 
-    return passengers % carSeats == 0 ? carQuantity : (carQuantity + 1)
+    return Int(ceil(carQuantity))
 }
 
 print(carsNeeded(passengers: 11))
